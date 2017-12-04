@@ -10,9 +10,6 @@ import java.util.List;
 public class CompoundComparator implements Comparator<City> {
 
     List<Comparator<City>> comparators = new ArrayList<>();
-    NameComparator city = new NameComparator();
-    StateComparator state = new StateComparator();
-
 
     public void add(Comparator<City> aComparator) {
         comparators.add(aComparator);
@@ -20,19 +17,20 @@ public class CompoundComparator implements Comparator<City> {
 
     @Override
     public int compare(City o1, City o2) {
-        // TODO: Complete step 5 in Bonus mission
-//        comparators.add(city);
-//        comparators.add(state);
-//        Comparator<City> c = comparators.get(0);
+        comparators.add(new StateComparator());
+        comparators.add(new NameComparator());
+        comparators.add(new PopulationComparator());
+        comparators.add(new AreaComparator());
 
-//        Iterator<Comparator<City>> i = comparators.iterator();
-        int cValue = o1.getState().compareTo(o2.getState());
-
+        int cValue = comparators.get(0).compare(o1, o2);
+        Iterator i = comparators.iterator();
         if (cValue == 0) {
-            return city.compare(o1, o2);
-        }
-
-//       System.out.println(value);
-        return state.compare(o1, o2);
+            int k = 1;
+            while(i.hasNext()) {
+                int r = comparators.get(k).compare(o1, o2);
+                k++;
+                return r;
+            }
+        } return comparators.get(0).compare(o1, o2);
     }
 }
