@@ -17,6 +17,11 @@ public class Main {
         AreaComparator area = new AreaComparator();
         CompoundComparator compound = new CompoundComparator();
 
+        compound.add(new StateComparator());
+        compound.add(new NameComparator());
+        compound.add(new PopulationComparator());
+        compound.add(new AreaComparator());
+
         cities.sort(city);
         cities.sort(state);
         cities.sort(population);

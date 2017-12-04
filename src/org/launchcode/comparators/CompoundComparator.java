@@ -17,10 +17,6 @@ public class CompoundComparator implements Comparator<City> {
 
     @Override
     public int compare(City o1, City o2) {
-        comparators.add(new StateComparator());
-        comparators.add(new NameComparator());
-        comparators.add(new PopulationComparator());
-        comparators.add(new AreaComparator());
 
         int cValue = comparators.get(0).compare(o1, o2);
         Iterator i = comparators.iterator();
